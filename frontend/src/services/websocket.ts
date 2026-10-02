@@ -6,8 +6,10 @@ class WebSocketService {
   private reconnectInterval: number = 3000;
 
   connect() {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws/events`;
+    const wsBase =
+  import.meta.env.VITE_WS_URL ||
+  `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`;
+const wsUrl = `${wsBase}/ws/events`;
 
     try {
       this.socket = new WebSocket(wsUrl);
